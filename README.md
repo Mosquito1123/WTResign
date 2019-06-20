@@ -34,21 +34,25 @@ python ltresign.py -l
 
 - 使用方式一：默认ipa导出路径为当前目录下的glt_output.ipa，Display Name为原始，BundleIdentifier为原始
 ```bash
+./ltresign -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision
 python ltresign.py -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision
 ```
 
 - 使用方式二：指定ipa导出路径为当前目录下的Payload.ipa文件，Display Name为原始，BundleIdentifier为原始
 ```bash
+./ltresign -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa
 python ltresign.py -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa
 ```
 
 - 使用方式三：指定ipa导出路径为当前目录下的Payload.ipa文件，Display Name为原始，BundleIdentifier为设置的值
 ```bash
+./ltresign -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa -b "新的bundleId"
 python ltresign.py -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa -b "新的bundleId"
 ```
 
 - 使用方式四：指定ipa导出路径为当前目录下的Payload.ipa文件，Display Name为设置的新的名称，BundleIdentifier为设置的值
 ```bash
+./ltresign -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa -b "新的bundleId" -n "新的名称"
 python ltresign.py -s .app文件路径或.ipa文件路径 -d 证书id -m embedded.mobileprovision -o ./glttest.ipa -b "新的bundleId" -n "新的名称"
 ```
 - 更多
@@ -59,11 +63,13 @@ python ltresign.py -s .app文件路径或.ipa文件路径 -d 证书id -m embedde
 #### 使用示例（仅供参考）
 示例中test.app可以为ipa文件， -o为可选参数，-b为可选参数， -n为可选参数
 ```bash
+./ltresign -s test.app -d "iPhone Developer: test test (XXXXX)" -m embedded.mobileprovision -o ./Payload.ipa -b "com.xxx.xxxx" -n "分身1"
+
 python ltresign.py -s test.app -d "iPhone Developer: test test (XXXXX)" -m embedded.mobileprovision -o ./Payload.ipa -b "com.xxx.xxxx" -n "分身1"
 ```
 
 #### 命令执行过程
-![image](https://github.com/Mosquito1123/WTResign/blob/master/process.png)
+![image](https://github.com/Mosquito1123/WTResign/blob/master/shell_process.png)
 
 ## 安装效果图
 ![image](https://github.com/Mosquito1123/WTResign/blob/master/finished.jpeg)
