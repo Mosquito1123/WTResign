@@ -6,6 +6,11 @@ import shutil
 import sys
 import time
 import zipfile
+import isign
+import urllib2
+import re
+import urlparse
+
 
 glt_version = '0.0.1'
 glt_tmp = 'glt_tmp'
@@ -145,6 +150,14 @@ def glt_unzipFile(sourceFile, outputPath):
     zipObj.extractall(outputPath)
     zipObj.close()
 
+def glt_handle_web_source(source):
+    print("downloading with %s" % source)
+    url = source
+    f = urllib2.urlopen(url)
+    data = f.read()
+    path = url.split('/')[-1]
+    with open(path, "wb") as code:
+        code.write(data)
 
 def glt_handle_source(source):
     global glt_tmp
@@ -422,11 +435,17 @@ if __name__ == "__main__":
 
         if output:
             glt_exportPath = output
-
         glt_source = source
+
         glt_developerCodeSign = developer
         glt_mobile = mobile
 
+        if re.match(r'^https?:/{2}\w.+$', source):
+            print("web")
+            glt_source = source.split('/')[-1]
+            glt_handle_web_source(source)
+        else:
+            print("local")
         glt_handle_source(glt_source)
         glt_export_signInfo(glt_mobile)
         glt_handle_outputName()
@@ -435,6 +454,12 @@ if __name__ == "__main__":
     elif encrypt:
         glt_source = encrypt
         glt_encrypt = encrypt
+        if re.match(r'^https?:/{2}\w.+$', source):
+            print("web")
+            glt_source = source.split('/')[-1]
+            glt_handle_web_source(source)
+        else:
+            print("local")
         glt_handle_source(glt_source)
         glt_handle_developer()
 
